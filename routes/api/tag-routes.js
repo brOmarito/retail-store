@@ -30,6 +30,7 @@ router.get('/:id', async (req, res) => {
 
     if (!tagData) {
       res.status(404).json({ message: 'No tag data found with that ID!' });
+      return;
     }
 
     res.status(200).json(tagData);
@@ -47,7 +48,7 @@ router.post('/', async (req, res) => {
       const productTagArr = req.body.productIds.map((productId) => {
         return {
           product_id: productId,
-          tag_id: tagData.tagId,
+          tag_id: tagData.id,
         }
       });
       productTagData = await ProductTag.bulkCreate(productTagArr);
